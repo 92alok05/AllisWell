@@ -3,16 +3,18 @@
     package="com.alliswell.patients">
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:name="com.alliswell.common.AllIsWellApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher_custom"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_custom"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllisWell">
+        <activity android:name=".AddPatientsActivity" />
         <activity
             android:name="com.alliswell.issues.IssuesActivity"
             android:label="@string/title_activity_issues"
-            android:theme="@style/Theme.AllisWell.NoActionBar"></activity>
+            android:theme="@style/Theme.AllisWell.NoActionBar" />
         <activity
             android:name=".PatientsActivity"
             android:label="@string/title_activity_patients"

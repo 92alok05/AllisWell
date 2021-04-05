@@ -1,8 +1,8 @@
 package com.alliswell.common
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.alliswell.patients.PatientsActivity
 import java.lang.Math.atan
 import java.lang.Math.tan
