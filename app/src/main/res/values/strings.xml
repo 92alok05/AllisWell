@@ -19,4 +19,6 @@
     <string name="issue_name">Issue Name</string>
     <string name="title_activity_patients_list">PatientsListActivity</string>
     <string name="empty_not_saved">Empty Input cannot be saved</string>
+    <string name="id_no_label">ID No.</string>
+    <string name="space">" "</string>
 </resources>

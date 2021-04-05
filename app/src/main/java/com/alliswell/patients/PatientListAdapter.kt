@@ -17,16 +17,18 @@ class PatientListAdapter : ListAdapter<Patient, PatientListAdapter.PatientViewHo
 
     override fun onBindViewHolder(holder: PatientViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.firstName, current.lastName)
+        holder.bind(current.firstName, current.lastName, current.patientId)
     }
 
     class PatientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val firstNameView: TextView = itemView.findViewById(R.id.textView2)
-        private val lastNameView: TextView = itemView.findViewById(R.id.textView3)
+        private val firstNameView: TextView = itemView.findViewById(R.id.firstName)
+        private val lastNameView: TextView = itemView.findViewById(R.id.lastName)
+        private val patientIdView: TextView = itemView.findViewById(R.id.patientId)
 
-        fun bind(firstName: String?, lastName: String?) {
+        fun bind(firstName: String?, lastName: String?, patientId: Int) {
             firstNameView.text = firstName
             lastNameView.text = lastName
+            patientIdView.text = patientId.toString()
         }
 
         companion object {

@@ -24,8 +24,8 @@ class PatientAdapter(patients: List<Patient>,  context: Context) : RecyclerView.
 
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
-        val firstName = itemView.findViewById<TextView>(R.id.textView2)
-        val lastName = itemView.findViewById<TextView>(R.id.textView3)
+        val firstName = itemView.findViewById<TextView>(R.id.firstName)
+        val lastName = itemView.findViewById<TextView>(R.id.lastName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
