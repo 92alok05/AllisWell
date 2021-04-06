@@ -1,13 +1,17 @@
 package com.alliswell.patients
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alliswell.data.Patient
+import com.alliswell.situation.SituationActivity
 
 class PatientListAdapter : ListAdapter<Patient, PatientListAdapter.PatientViewHolder>(PatientsComparator()) {
 
@@ -25,10 +29,18 @@ class PatientListAdapter : ListAdapter<Patient, PatientListAdapter.PatientViewHo
         private val lastNameView: TextView = itemView.findViewById(R.id.lastName)
         private val patientIdView: TextView = itemView.findViewById(R.id.patientId)
 
+        private val patientCard: CardView = itemView.findViewById(R.id.patientCard)
+
         fun bind(firstName: String?, lastName: String?, patientId: Int) {
             firstNameView.text = firstName
             lastNameView.text = lastName
             patientIdView.text = patientId.toString()
+
+            patientCard.setOnClickListener { view ->
+                val sitationActivityForPatient = Intent(view.context, SituationActivity::class.java)
+                sitationActivityForPatient.putExtra("patientId", patientId.toString())
+                startActivity(view.context, sitationActivityForPatient, null)
+            }
         }
 
         companion object {

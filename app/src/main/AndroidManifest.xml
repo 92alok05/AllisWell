@@ -10,11 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_custom"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllisWell">
+        <activity android:name="com.alliswell.situation.AddSituationActivity"></activity>
         <activity android:name=".AddPatientsActivity" />
         <activity
-            android:name="com.alliswell.issues.IssuesActivity"
+            android:name="com.alliswell.situation.SituationActivity"
             android:label="@string/title_activity_issues"
-            android:theme="@style/Theme.AllisWell.NoActionBar" />
+            android:theme="@style/Theme.AllisWell.NoActionBar">
+            <meta-data
+                android:name="com.support.PARENT_ACTIVITY"
+                android:value=".PatientsActivity" />
+        </activity>
         <activity
             android:name=".PatientsActivity"
             android:label="@string/title_activity_patients"

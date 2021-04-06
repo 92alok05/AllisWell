@@ -8,10 +8,19 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Patient::class), version = 1, exportSchema = false)
+@Database(
+    entities = arrayOf(
+        Patient::class,
+        Situation::class,
+        PatientSituation::class),
+    version = 1,
+    exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun patientDao(): PatientDao
+    abstract fun situationDao(): SituationDao
+    abstract fun patientSituationDao(): PatientSituationDao
+    abstract fun patientWithSituationsDao(): PatientWithSituationsDao
 
     private class AppDatabaseCallback(
         private val scope: CoroutineScope
@@ -21,22 +30,42 @@ abstract class AppDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.patientDao())
+                    populateDatabase(
+                        database.patientDao(),
+                        database.situationDao(),
+                        database.patientSituationDao())
                 }
             }
         }
 
-        suspend fun populateDatabase(patientDao: PatientDao) {
+        suspend fun populateDatabase(
+            patientDao: PatientDao,
+            situationDao: SituationDao,
+            patientSituationDao: PatientSituationDao) {
             // Delete all content here.
             patientDao.deleteAll()
 
-            // Add sample words.
+            // Add sample patients
             var patient1 = Patient("Sunanda", "Apte")
             patientDao.insert(patient1)
             var patient2 = Patient("Manasi", "Bhadane")
             patientDao.insert(patient2)
 
-            // TODO: Add your own words!
+            // Add sample situation
+            val situation1 = Situation("Body Movement Recovery", "Trying to do daily activities")
+            situationDao.insert(situation1)
+
+            val situation2 = Situation("Covid", "Monitoring breathing metrics")
+            situationDao.insert(situation2)
+
+            // Add sample association
+            val patientSituation1 = PatientSituation(1,1)
+            patientSituationDao.insert(patientSituation1)
+
+            val patientSituation2 = PatientSituation(2, 2)
+            patientSituationDao.insert(patientSituation2)
+
+
         }
     }
 

@@ -8,12 +8,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alliswell.common.AllIsWellApplication
 import com.alliswell.data.Patient
-import com.alliswell.issues.IssuesActivity
+import com.alliswell.situation.SituationActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -65,7 +66,7 @@ class PatientsActivity : AppCompatActivity() {
     }
 
     fun next_action(view: View) {
-        val activity2Intent = Intent(applicationContext, IssuesActivity::class.java)
+        val activity2Intent = Intent(applicationContext, SituationActivity::class.java)
         startActivity(activity2Intent)
     }
 
