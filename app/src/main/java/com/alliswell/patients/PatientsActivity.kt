@@ -16,6 +16,7 @@ import com.alliswell.common.AllIsWellApplication
 import com.alliswell.data.Patient
 import com.alliswell.situation.SituationActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 
 class PatientsActivity : AppCompatActivity() {
@@ -57,11 +58,13 @@ class PatientsActivity : AppCompatActivity() {
             val lastName = data?.getStringExtra(AddPatientsActivity.REPLY_LAST_NAME)
             val patient = Patient(firstName, lastName)
             patientViewModel.insert(patient)
+            val contextView = findViewById<View>(R.id.patientsRecycler)
+            Snackbar.make(contextView,  R.string.success_saved, Snackbar.LENGTH_LONG)
+                .show()
         } else {
-            Toast.makeText(
-                applicationContext,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG).show()
+            val contextView = findViewById<View>(R.id.patientsRecycler)
+            Snackbar.make(contextView,  R.string.empty_not_saved, Snackbar.LENGTH_LONG)
+                .show()
         }
     }
 

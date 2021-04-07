@@ -26,6 +26,18 @@ class SituationViewModel(private val repository: AppRepository): ViewModel() {
         repository.insert(patientSituation)
     }
 
+    fun insert(parameter: Parameter) : LiveData<Long> {
+        val result = MutableLiveData<Long>()
+        viewModelScope.launch {
+            val id = repository.insert(parameter)
+            result.postValue(id)
+        }
+        return result
+    }
+
+    fun insert(situationParameter: SituationParameter) = viewModelScope.launch {
+        repository.insert(situationParameter)
+    }
 
 
 

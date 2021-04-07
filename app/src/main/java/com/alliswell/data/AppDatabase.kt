@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
     entities = arrayOf(
         Patient::class,
         Situation::class,
-        PatientSituation::class),
+        PatientSituation::class,
+        Parameter::class,
+        SituationParameter::class),
     version = 1,
     exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -21,6 +23,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun situationDao(): SituationDao
     abstract fun patientSituationDao(): PatientSituationDao
     abstract fun patientWithSituationsDao(): PatientWithSituationsDao
+    abstract fun parameterDao(): ParameterDao
+    abstract fun situationParameterDao(): SituationParameterDao
 
     private class AppDatabaseCallback(
         private val scope: CoroutineScope
@@ -33,7 +37,9 @@ abstract class AppDatabase : RoomDatabase() {
                     populateDatabase(
                         database.patientDao(),
                         database.situationDao(),
-                        database.patientSituationDao())
+                        database.patientSituationDao(),
+                        database.parameterDao(),
+                        database.situationParameterDao())
                 }
             }
         }
@@ -41,7 +47,9 @@ abstract class AppDatabase : RoomDatabase() {
         suspend fun populateDatabase(
             patientDao: PatientDao,
             situationDao: SituationDao,
-            patientSituationDao: PatientSituationDao) {
+            patientSituationDao: PatientSituationDao,
+            parameterDao: ParameterDao,
+            situationParameterDao: SituationParameterDao) {
             // Delete all content here.
             patientDao.deleteAll()
 
@@ -64,6 +72,14 @@ abstract class AppDatabase : RoomDatabase() {
 
             val patientSituation2 = PatientSituation(2, 2)
             patientSituationDao.insert(patientSituation2)
+
+            // Add sample parameter
+            val parameter = Parameter("Walking")
+            parameterDao.insert(parameter)
+
+            // Add sample association
+            val situationParameter = SituationParameter(1, 1)
+            situationParameterDao.insert(situationParameter)
 
 
         }

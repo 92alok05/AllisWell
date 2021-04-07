@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 
 @Dao
-interface PatientSituationDao {
+interface SituationParameterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert( patientSituation: PatientSituation)
+    suspend fun insert( situationParameter: SituationParameter)
 }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,10 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alliswell.common.AllIsWellApplication
-import com.alliswell.data.Patient
+import com.alliswell.data.Parameter
 import com.alliswell.data.PatientSituation
 import com.alliswell.data.Situation
-import com.alliswell.patients.AddPatientsActivity
+import com.alliswell.data.SituationParameter
 import com.alliswell.patients.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -55,20 +56,52 @@ class SituationActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == addSituationActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            // Get the information about title and description from intent
             val title = data?.getStringExtra(AddSituationActivity.REPLY_TITLE)
             val description = data?.getStringExtra(AddSituationActivity.REPLY_DESCRIPTION)
             val patientId = data?.getStringExtra(AddSituationActivity.REPLY_PATIENTID)
+
             val situation = Situation(title, description)
-            situationViewModel.insert(situation).observe(this, Observer { t ->
-                val patientSituation = PatientSituation(Integer.parseInt(patientId) , t.toInt() )
+
+            // Since insert returns the id of the situation in the form of live data, we have to observe the
+            // result
+            situationViewModel.insert(situation).observe(this, Observer { situationId ->
+                val patientSituation = PatientSituation(Integer.parseInt(patientId!!) , situationId.toInt() )
                 situationViewModel.insert(patientSituation)
+
+                // Insert parameter and its associated situation similarly
+                val parameters = getParameters()
+                for (parameter in parameters) {
+                    situationViewModel.insert(parameter).observe(this, Observer { parameterId ->
+                        val situationParameter = SituationParameter(situationId.toInt(), parameterId.toInt())
+                        situationViewModel.insert(situationParameter)
+
+                        val contextView = findViewById<View>(R.id.situationRecycler)
+                        Snackbar.make(contextView,  R.string.success_saved, Snackbar.LENGTH_LONG)
+                                .show()
+                    })
+                }
+
             })
 
         } else {
-            Toast.makeText(
-                applicationContext,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG).show()
+            val contextView = findViewById<View>(R.id.situationRecycler)
+            Snackbar.make(contextView,  R.string.empty_not_saved, Snackbar.LENGTH_LONG)
+                .show()
         }
+    }
+
+    fun getParameters(): List<Parameter> {
+        // Get all the fields from the added text view
+        // If the text is blank then ignore the addition
+        val parameters = mutableListOf<Parameter>()
+        for(parameterText in AddSituationActivity.parameterTexts) {
+            val paramName = parameterText.text.toString()
+            if (!paramName.isBlank()) {
+                val parameter = Parameter(paramName)
+                parameters.add(parameter)
+            }
+        }
+        return parameters
     }
 }

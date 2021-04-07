@@ -7,7 +7,9 @@ class AppRepository(
     private val patientDao: PatientDao,
     private val situationDao: SituationDao,
     private val patientSituationDao: PatientSituationDao,
-    private val patientWithSituationsDao: PatientWithSituationsDao
+    private val patientWithSituationsDao: PatientWithSituationsDao,
+    private val parameterDao: ParameterDao,
+    private val situationParameterDao: SituationParameterDao
     ) {
 
     val patients = patientDao.getAll()
@@ -25,6 +27,16 @@ class AppRepository(
     @WorkerThread
     suspend fun insert(patientSituation: PatientSituation) {
         patientSituationDao.insert(patientSituation)
+    }
+
+    @WorkerThread
+    suspend fun insert(parameter: Parameter) : Long{
+        return parameterDao.insert(parameter)
+    }
+
+    @WorkerThread
+    suspend fun insert(situationParameter: SituationParameter) {
+        return situationParameterDao.insert(situationParameter)
     }
 
     @WorkerThread

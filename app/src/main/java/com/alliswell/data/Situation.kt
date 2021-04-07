@@ -10,5 +10,6 @@ data class Situation (
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "description") val description: String?
 ) {
+    // Constructor with only title and description
     constructor(title: String?, description: String?) : this(0, title, description)
 }
