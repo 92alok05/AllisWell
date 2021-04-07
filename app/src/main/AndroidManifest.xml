@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_custom"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllisWell">
-        <activity android:name="com.alliswell.situation.AddSituationActivity"></activity>
+        <activity android:name="com.alliswell.details.ui.journal.AddJournalDetailActivity"></activity>
+        <activity
+            android:name="com.alliswell.details.DetailsMainActivity"
+            android:label="@string/title_activity_details_main" />
+        <activity android:name="com.alliswell.situation.AddSituationActivity" />
         <activity android:name=".AddPatientsActivity" />
         <activity
             android:name="com.alliswell.situation.SituationActivity"

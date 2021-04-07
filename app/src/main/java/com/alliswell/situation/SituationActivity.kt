@@ -34,12 +34,15 @@ class SituationActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val recyclerView = findViewById<RecyclerView>(R.id.situationRecycler)
-        val adapter = SituationListAdapter()
+        val patientIdStr = intent.getStringExtra("patientId")
+        val patientId = Integer.parseInt(patientIdStr!!)
+
+        val adapter = SituationListAdapter(patientId)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val patientIdStr = intent.getStringExtra("patientId")
-        val patientId = Integer.parseInt(patientIdStr!!)
+
+
         situationViewModel.getSituationsForPatient(patientId).observe(this, Observer { patientWithSituations ->
             // Update the cached copy of the words in the adapter.
             patientWithSituations?.let { adapter.submitList(patientWithSituations.first().situations) }

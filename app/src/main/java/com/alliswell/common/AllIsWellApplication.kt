@@ -22,6 +22,7 @@ class AllIsWellApplication : Application() {
             database.patientSituationDao(),
             database.patientWithSituationsDao(),
             database.parameterDao(),
-            database.situationParameterDao())
+            database.situationParameterDao(),
+            database.detailDao())
     }
 }

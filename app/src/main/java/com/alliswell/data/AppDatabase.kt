@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -14,9 +15,11 @@ import kotlinx.coroutines.launch
         Situation::class,
         PatientSituation::class,
         Parameter::class,
-        SituationParameter::class),
+        SituationParameter::class,
+        Detail::class),
     version = 1,
     exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun patientDao(): PatientDao
@@ -25,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun patientWithSituationsDao(): PatientWithSituationsDao
     abstract fun parameterDao(): ParameterDao
     abstract fun situationParameterDao(): SituationParameterDao
+    abstract fun detailDao(): DetailDao
 
     private class AppDatabaseCallback(
         private val scope: CoroutineScope

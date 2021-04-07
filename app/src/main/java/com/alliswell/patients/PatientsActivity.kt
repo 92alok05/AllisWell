@@ -68,10 +68,4 @@ class PatientsActivity : AppCompatActivity() {
         }
     }
 
-    fun next_action(view: View) {
-        val activity2Intent = Intent(applicationContext, SituationActivity::class.java)
-        startActivity(activity2Intent)
-    }
-
-
 }
