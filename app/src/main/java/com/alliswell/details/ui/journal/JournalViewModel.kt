@@ -11,15 +11,16 @@ class JournalViewModel: ViewModel {
 
     lateinit var _repository: AppRepository
 
-    constructor(): super()  {
-
-    }
     constructor(repository: AppRepository) : super() {
         _repository = repository
     }
 
     fun insert(detail: Detail) = viewModelScope.launch {
         _repository.insert(detail)
+    }
+
+    fun getDetailsForPatientAndSituation(patientId: Int, situationId: Int): LiveData<List<Detail>> {
+        return _repository.getDetailsForPatientAndSituation(patientId, situationId).asLiveData()
     }
 
 }

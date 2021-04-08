@@ -49,4 +49,9 @@ class AppRepository(
     fun getPatientWithSituations(patientId: Int): Flow<List<PatientWithSituations>> {
         return patientWithSituationsDao.getPatientWithSituations(patientId);
     }
+
+    @WorkerThread
+    fun getDetailsForPatientAndSituation(patientId: Int, situationId: Int): Flow<List<Detail>> {
+        return detailDao.getAllValuesForPatientAndSituation(patientId, situationId)
+    }
 }

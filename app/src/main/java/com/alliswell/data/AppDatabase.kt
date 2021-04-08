@@ -8,6 +8,8 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Database(
     entities = arrayOf(
@@ -43,7 +45,8 @@ abstract class AppDatabase : RoomDatabase() {
                         database.situationDao(),
                         database.patientSituationDao(),
                         database.parameterDao(),
-                        database.situationParameterDao())
+                        database.situationParameterDao(),
+                        database.detailDao())
                 }
             }
         }
@@ -53,7 +56,8 @@ abstract class AppDatabase : RoomDatabase() {
             situationDao: SituationDao,
             patientSituationDao: PatientSituationDao,
             parameterDao: ParameterDao,
-            situationParameterDao: SituationParameterDao) {
+            situationParameterDao: SituationParameterDao,
+            detailDao: DetailDao) {
             // Delete all content here.
             patientDao.deleteAll()
 
@@ -84,6 +88,16 @@ abstract class AppDatabase : RoomDatabase() {
             // Add sample association
             val situationParameter = SituationParameter(1, 1)
             situationParameterDao.insert(situationParameter)
+
+            // Add sample detail
+            val parser =  SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            val date = parser.parse("2021-04-07")
+            val detail = Detail(date!!, 1, 2.2f, 1, 1)
+            detailDao.insert(detail)
+
+            val date2 = parser.parse("2021-04-08")
+            val detail2 = Detail(date2!!, 1, 2.3f, 1, 1)
+            detailDao.insert(detail2)
 
 
         }
