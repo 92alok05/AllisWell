@@ -80,6 +80,11 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="top"
                 android:text="Save" />
+
+            <Spinner
+                android:id="@+id/spinnerParamNames"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </TableRow>
 
 

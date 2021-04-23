@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DetailsMainActivity : AppCompatActivity() {
 
-    val addDetailsActivityRequestCode = 1
+
     var _patientId: Int = -1
     var _situationId: Int = -1
 

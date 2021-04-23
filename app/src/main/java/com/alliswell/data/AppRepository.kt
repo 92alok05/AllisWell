@@ -10,7 +10,8 @@ class AppRepository(
     private val patientWithSituationsDao: PatientWithSituationsDao,
     private val parameterDao: ParameterDao,
     private val situationParameterDao: SituationParameterDao,
-    private val detailDao: DetailDao
+    private val detailDao: DetailDao,
+    private val situationWithParameterDao: SituationWithParameterDao
     ) {
 
     val patients = patientDao.getAll()
@@ -53,5 +54,10 @@ class AppRepository(
     @WorkerThread
     fun getDetailsForPatientAndSituation(patientId: Int, situationId: Int): Flow<List<Detail>> {
         return detailDao.getAllValuesForPatientAndSituation(patientId, situationId)
+    }
+
+    @WorkerThread
+    fun getParametersForSituation(situationId: Int): Flow<List<SituationWithParameters>> {
+        return situationWithParameterDao.getSituationWithParameters(situationId)
     }
 }

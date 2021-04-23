@@ -14,12 +14,13 @@ import com.alliswell.data.Detail
 import com.alliswell.details.DetailsMainActivity
 import com.alliswell.patients.R
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_details_main.*
 import kotlinx.android.synthetic.main.fragment_journal.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class JournalFragment : Fragment() {
+
+    val addDetailsActivityRequestCode = 1
 
     private val journalViewModel: JournalViewModel by viewModels {
         JournalViewModelFactory((activity?.application as AllIsWellApplication).repository)
@@ -41,8 +42,6 @@ class JournalFragment : Fragment() {
         journalRecycler.adapter = adapter
         journalRecycler.layoutManager = LinearLayoutManager(context)
 
-
-
         val patientId = (activity as DetailsMainActivity).getPatientId()
         val situationId = (activity as DetailsMainActivity).getSituationId()
 
@@ -53,7 +52,9 @@ class JournalFragment : Fragment() {
 
         btnAddEntry.setOnClickListener { view ->
             val activity2Intent = Intent(activity, AddJournalDetailActivity::class.java)
-            startActivityForResult(activity2Intent, 1)
+            activity2Intent.putExtra("patientId", patientId.toString())
+            activity2Intent.putExtra("situationId", situationId.toString())
+            startActivityForResult(activity2Intent, addDetailsActivityRequestCode)
         }
     }
 

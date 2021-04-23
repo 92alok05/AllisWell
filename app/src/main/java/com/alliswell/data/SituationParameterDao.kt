@@ -8,4 +8,6 @@ import androidx.room.OnConflictStrategy
 interface SituationParameterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert( situationParameter: SituationParameter)
+
+
 }

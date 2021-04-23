@@ -31,6 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun parameterDao(): ParameterDao
     abstract fun situationParameterDao(): SituationParameterDao
     abstract fun detailDao(): DetailDao
+    abstract fun situationWithParameterDao(): SituationWithParameterDao
 
     private class AppDatabaseCallback(
         private val scope: CoroutineScope

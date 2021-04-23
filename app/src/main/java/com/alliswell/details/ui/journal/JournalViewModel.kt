@@ -1,9 +1,7 @@
 package com.alliswell.details.ui.journal
 
 import androidx.lifecycle.*
-import com.alliswell.data.AppRepository
-import com.alliswell.data.Detail
-import com.alliswell.data.Patient
+import com.alliswell.data.*
 import com.alliswell.patients.PatientViewModel
 import kotlinx.coroutines.launch
 
@@ -21,6 +19,10 @@ class JournalViewModel: ViewModel {
 
     fun getDetailsForPatientAndSituation(patientId: Int, situationId: Int): LiveData<List<Detail>> {
         return _repository.getDetailsForPatientAndSituation(patientId, situationId).asLiveData()
+    }
+
+    fun getParamsForSituation(situationId: Int) : LiveData<List<SituationWithParameters>> {
+        return _repository.getParametersForSituation(situationId).asLiveData()
     }
 
 }
